@@ -5,10 +5,11 @@ install: setup
 
 setup:
 	composer install
-	npm ci
-	npm run build 
 	cp -n .env.example .env
 	php artisan key:generate --ansi
+	npm ci
+	npm run build
+	php artisan migrate
 
 test:
 	php artisan test
