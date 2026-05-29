@@ -38,7 +38,7 @@ class TaskController extends Controller
         $taskStatuses = TaskStatus::all();
         $users = User::all();
 
-        return view('tasks.create',  compact('taskStatuses', 'users'));
+        return view('tasks.create', compact('taskStatuses', 'users'));
     }
 
     /**
@@ -66,7 +66,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        return view('tasks.show',  compact('task'));
+        return view('tasks.show', compact('task'));
     }
 
     /**
@@ -77,7 +77,7 @@ class TaskController extends Controller
         $taskStatuses = TaskStatus::all();
         $users = User::all();
 
-        return view('tasks.edit',  compact('task', 'taskStatuses', 'users'));
+        return view('tasks.edit', compact('task', 'taskStatuses', 'users'));
     }
 
     /**
