@@ -9,7 +9,8 @@ setup:
 	php artisan key:generate --ansi
 	npm ci
 	npm run build
-	php artisan migrate
+	touch database/database.sqlite
+	php artisan migrate --force --seed
 
 test:
 	php artisan test
