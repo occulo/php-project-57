@@ -16,6 +16,11 @@ class Task extends Model
         return $this->belongsTo(TaskStatus::class);
     }
 
+    public function labels()
+    {
+        return $this->belongsToMany(Label::class);
+    }
+
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by_id');
