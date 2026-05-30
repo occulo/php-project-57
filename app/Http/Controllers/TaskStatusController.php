@@ -42,7 +42,7 @@ class TaskStatusController extends Controller
         $taskStatus = new TaskStatus();
         $taskStatus->fill($validatedData)->save();
 
-        flash('Status created successfully');
+        flash(__('app.flash.task_statuses.created'));
         return redirect()->route('task_statuses.index');
     }
 
@@ -65,7 +65,7 @@ class TaskStatusController extends Controller
 
         $taskStatus->fill($validatedData)->save();
 
-        flash('Status updated successfully');
+        flash(__('app.flash.task_statuses.updated'));
         return redirect()->route('task_statuses.index');
     }
 
@@ -75,10 +75,10 @@ class TaskStatusController extends Controller
     public function destroy(TaskStatus $taskStatus)
     {
         if ($taskStatus->tasks()->exists()) {
-            flash('Cannot delete status: linked to existing tasks');
+            flash(__('app.flash.task_statuses.delete_failed'));
         } else {
             $taskStatus->delete();
-            flash('Status deleted successfully');
+            flash(__('app.flash.task_statuses.deleted'));
         }
 
         return redirect()->route('task_statuses.index');

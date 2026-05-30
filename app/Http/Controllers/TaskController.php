@@ -57,7 +57,7 @@ class TaskController extends Controller
         $task = new Task();
         $task->fill($validatedData)->save();
 
-        flash('Task created successfully');
+        flash(__('app.flash.tasks.created'));
         return redirect()->route('tasks.index');
     }
 
@@ -94,7 +94,7 @@ class TaskController extends Controller
 
         $task->fill($validatedData)->save();
 
-        flash('Task updated successfully');
+        flash(__('app.flash.tasks.updated'));
         return redirect()->route('tasks.index');
     }
 
@@ -104,11 +104,11 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         if (Auth::id() !== $task->created_by_id) {
-            flash('Cannot delete task: user is not authorized to perform this action');
+            flash(__('app.flash.tasks.delete_failed'));
             abort(403);
         } else {
             $task->delete();
-            flash('Task deleted successfully');
+            flash(__('app.flash.tasks.deleted'));
         }
 
         return redirect()->route('tasks.index');
