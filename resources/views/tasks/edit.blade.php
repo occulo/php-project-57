@@ -2,10 +2,10 @@
   <x-slot name="header">
     <div class="flex items-center justify-between">
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-          {{ __('Task Management') }}
+          {{ __('app.task_management') }}
       </h2>
       <x-link-button.secondary href="{{ route('tasks.index') }}">
-        {{ __('Back') }}
+        {{ __('app.buttons.common.back') }}
       </x-link-button.secondary>
     </div>
   </x-slot>
@@ -14,10 +14,10 @@
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __('Edit task') }}
+            {{ __('app.pages.tasks.edit.title') }}
         </h2>
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __('Update the task information, status, and assignment.') }}
+            {{ __('app.pages.tasks.edit.subtitle') }}
         </p>
     </header>
       <form action="{{ route('tasks.update', $task) }}" method="post">
@@ -25,20 +25,20 @@
         @method('PATCH')
         <div class="mt-6 space-y-6">
           <div>
-            <x-input-label for="name" :value="__('Title')" />
+            <x-input-label for="name" :value="__('app.fields.title')" />
             <x-text-input
                 id="name"
                 name="name"
                 type="text"
                 :value="old('name', $task->name)"
                 class="w-full mt-1"
-                placeholder="{{ __('What needs to be done?') }}"
+                placeholder="{{ __('app.forms.tasks.title_placeholder') }}"
                 required autofocus
             />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
           </div>
           <div>
-            <x-input-label for="status_id" :value="__('Status')" />
+            <x-input-label for="status_id" :value="__('app.fields.status')" />
             <x-select-input id="status_id" name="status_id" class="w-full mt-1">
               @foreach ($taskStatuses as $status)
               <option
@@ -52,9 +52,9 @@
             <x-input-error :messages="$errors->get('status_id')" class="mt-2" />
           </div>
           <div>
-            <x-input-label for="assigned_to_id" :value="__('Assigned to')" />
+            <x-input-label for="assigned_to_id" :value="__('app.fields.assigned_to_id')" />
             <x-select-input id="assigned_to_id" name="assigned_to_id" class="w-full mt-1">
-              <option value="">{{ __('Unassigned') }}</option>
+              <option value="">{{ __('app.fields.empty.assignee') }}</option>
               @foreach ($users as $user)
               <option
                 value="{{ $user->id }}"
@@ -67,17 +67,17 @@
             <x-input-error :messages="$errors->get('assigned_to_id')" class="mt-2" />
           </div>
           <div>
-            <x-input-label for="description" :value="__('Description')" />
+            <x-input-label for="description" :value="__('app.fields.description')" />
             <x-textarea-input
                 id="description"
                 name="description"
                 class="w-full mt-1"
-                placeholder="{{ __('Provide additional context, steps, or notes for completing this task.') }}"
+                placeholder="{{ __('app.forms.tasks.description_placeholder') }}"
             >{{ old('description', $task->description) }}</x-textarea-input>
             <x-input-error :messages="$errors->get('description')" class="mt-2" />
           </div>
           <x-primary-button>
-            {{ __('Save') }}
+            {{ __('app.buttons.common.save') }}
           </x-primary-button>
         </div>
       </form>

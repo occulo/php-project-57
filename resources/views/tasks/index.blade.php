@@ -2,11 +2,11 @@
   <x-slot name="header">
     <div class="flex items-center justify-between">
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-          {{ __('Tasks') }}
+          {{ __('app.tasks') }}
       </h2>
       @auth
       <x-link-button.primary href="{{ route('tasks.create') }}">
-        {{ __('Create task') }}
+        {{ __('app.buttons.tasks.create') }}
       </x-link-button.primary>
       @endauth
     </div>
@@ -16,13 +16,13 @@
       <table class="min-w-full table-fixed" data-test="tasks">
         <thead class="bg-gray-100 dark:bg-gray-900">
           <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-            <th class="w-16 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">ID</th>
-            <th class="w-auto px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('Title') }}</th>
-            <th class="w-48 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('Status') }}</th>
-            <th class="w-40 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('Created by') }}</th>
-            <th class="w-40 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('Created at') }}</th>
+            <th class="w-16 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('app.fields.id') }}</th>
+            <th class="w-auto px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('app.fields.title') }}</th>
+            <th class="w-48 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('app.fields.status') }}</th>
+            <th class="w-40 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('app.fields.created_by_id') }}</th>
+            <th class="w-40 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('app.fields.created_at') }}</th>
             @auth
-            <th class="w-1 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('Actions') }}</th>
+            <th class="w-1 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('app.fields.actions') }}</th>
             @endauth
           </tr>
         </thead>
@@ -38,16 +38,16 @@
             <td class="px-6 py-4 text-center">
               <div class="flex justify-center gap-3">
                 <x-link-button.secondary href="{{ route('tasks.show', $task) }}">
-                  {{ __('View') }}
+                  {{ __('app.buttons.common.view') }}
                 </x-link-button.secondary>
                 <x-link-button.primary href="{{ route('tasks.edit', $task) }}">
-                  {{ __('Edit') }}
+                  {{ __('app.buttons.common.edit') }}
                 </x-link-button.primary>
                 <form method="POST" action="{{ route('tasks.destroy', $task) }}">
                     @method('DELETE')
                     @csrf
                     <x-danger-button>
-                      {{ __('Delete') }}
+                      {{ __('app.buttons.common.delete') }}
                     </x-danger-button>
                 </form>
               </div>

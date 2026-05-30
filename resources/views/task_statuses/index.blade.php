@@ -2,11 +2,11 @@
   <x-slot name="header">
     <div class="flex items-center justify-between">
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-          {{ __('Task statuses') }}
+          {{ __('app.task_statuses') }}
       </h2>
       @auth
       <x-link-button.primary href="{{ route('task_statuses.create') }}">
-        {{ __('Create status') }}
+        {{ __('app.buttons.task_statuses.create') }}
       </x-link-button.primary>
       @endauth
     </div>
@@ -17,10 +17,10 @@
         <thead class="bg-gray-100 dark:bg-gray-900">
           <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
             <th class="w-16 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">ID</th>
-            <th class="w-auto px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('Name') }}</th>
-            <th class="w-40 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('Created at') }}</th>
+            <th class="w-auto px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('app.fields.name') }}</th>
+            <th class="w-40 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('app.fields.created_at') }}</th>
             @auth
-            <th class="w-1 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('Actions') }}</th>
+            <th class="w-1 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('app.fields.actions') }}</th>
             @endauth
           </tr>
         </thead>
@@ -34,13 +34,13 @@
             <td class="px-6 py-4 text-center">
               <div class="flex justify-center gap-3">
                 <x-link-button.primary href="{{ route('task_statuses.edit', $status) }}">
-                  {{ __('Edit') }}
+                  {{ __('app.buttons.common.edit') }}
                 </x-link-button.primary>
                 <form method="POST" action="{{ route('task_statuses.destroy', $status) }}">
                     @method('DELETE')
                     @csrf
                     <x-danger-button>
-                      {{ __('Delete') }}
+                      {{ __('app.buttons.common.delete') }}
                     </x-danger-button>
                 </form>
               </div>
