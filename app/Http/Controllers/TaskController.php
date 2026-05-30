@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\TaskStatus;
+use App\Models\Label;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -36,9 +37,10 @@ class TaskController extends Controller
     public function create()
     {
         $taskStatuses = TaskStatus::all();
+        $labels = Label::all();
         $users = User::all();
 
-        return view('tasks.create', compact('taskStatuses', 'users'));
+        return view('tasks.create', compact('taskStatuses', 'users', 'labels'));
     }
 
     /**
@@ -56,6 +58,7 @@ class TaskController extends Controller
 
         $task = new Task();
         $task->fill($validatedData)->save();
+        $task->labels()->sync($request->labels);
 
         flash(__('app.flash.tasks.created'));
         return redirect()->route('tasks.index');
@@ -75,9 +78,10 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         $taskStatuses = TaskStatus::all();
+        $labels = Label::all();
         $users = User::all();
 
-        return view('tasks.edit', compact('task', 'taskStatuses', 'users'));
+        return view('tasks.edit', compact('task', 'taskStatuses', 'labels', 'users'));
     }
 
     /**
@@ -93,6 +97,7 @@ class TaskController extends Controller
         ]);
 
         $task->fill($validatedData)->save();
+        $task->labels()->sync($request->labels);
 
         flash(__('app.flash.tasks.updated'));
         return redirect()->route('tasks.index');
