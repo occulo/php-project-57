@@ -22,9 +22,9 @@ class LabelTest extends TestCase
         $this->user = User::factory()->create();
         $this->label = Label::factory()->create();
         $this->task = Task::factory()->create([
-            'label_id' => $this->label->id,
             'created_by_id' => $this->user->id,
         ]);
+        $this->task->labels()->attach($this->label->id);
     }
 
     public function testIndexPageExists(): void
