@@ -2,14 +2,14 @@
   <x-slot name="header">
     <div class="flex items-center justify-between">
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-          {{ __('Task') }}
+          {{ __('Task Details') }}
       </h2>
-      <a href="{{ route('tasks.index') }}" class="px-4 py-2 rounded-md border border-gray-400 dark:border-gray-600 text-gray-800 dark:text-gray-300 text-xs font-semibold uppercase tracking-widest hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+      <x-link-button.secondary href="{{ route('tasks.index') }}">
         {{ __('Back') }}
-      </a>
+      </x-link-button.secondary>
     </div>
   </x-slot>
-  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
+  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12 space-y-6">
     <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
       <table class="w-full" data-test="task">
         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -47,16 +47,16 @@
         </tbody>
       </table>
     </div>
-    <div class="mt-12 flex justify-end items-center gap-3">
-      <a href="{{ route('tasks.edit', $task) }}" class="px-4 py-2 rounded-md text-xs font-semibold uppercase tracking-widest text-indigo-600 hover:text-white border border-indigo-700 hover:bg-indigo-800 transition">
+    <div class="flex justify-end items-center gap-3">
+      <x-link-button.primary href="{{ route('tasks.edit', $task) }}">
         {{ __('Edit') }}
-      </a>
+      </x-link-button.primary>
       <form method="POST" action="{{ route('tasks.destroy', $task) }}">
-        @method('DELETE')
-        @csrf
-        <button type="submit" class="px-4 py-2 rounded-md text-xs font-semibold uppercase tracking-widest text-red-600 border border-red-700 hover:bg-red-700 hover:text-white transition">
-          {{ __('Delete') }}
-        </button>
+          @method('DELETE')
+          @csrf
+          <x-danger-button>
+            {{ __('Delete') }}
+          </x-danger-button>
       </form>
     </div>
   </div>

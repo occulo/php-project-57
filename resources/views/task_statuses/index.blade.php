@@ -5,9 +5,9 @@
           {{ __('Task statuses') }}
       </h2>
       @auth
-      <a href="{{ route('task_statuses.create') }}" class="px-4 py-2 rounded-md text-xs font-semibold uppercase tracking-widest text-indigo-600 hover:text-white border border-indigo-700 hover:bg-indigo-800 transition">
+      <x-link-button.primary href="{{ route('task_statuses.create') }}">
         {{ __('Create status') }}
-      </a>
+      </x-link-button.primary>
       @endauth
     </div>
   </x-slot>
@@ -17,10 +17,10 @@
         <thead class="bg-gray-100 dark:bg-gray-900">
           <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
             <th class="w-16 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">ID</th>
-            <th class="w-48 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('Name') }}</th>
+            <th class="w-auto px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('Name') }}</th>
             <th class="w-40 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('Created at') }}</th>
             @auth
-            <th class="w-64 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('Actions') }}</th>
+            <th class="w-1 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">{{ __('Actions') }}</th>
             @endauth
           </tr>
         </thead>
@@ -33,15 +33,15 @@
             @auth
             <td class="px-6 py-4 text-center">
               <div class="flex justify-center gap-3">
-                <a href="{{ route('task_statuses.edit', $status) }}" class="px-4 py-2 rounded-md text-xs font-semibold uppercase tracking-widest text-indigo-600 hover:text-white border border-indigo-700 hover:bg-indigo-800 transition">
+                <x-link-button.primary href="{{ route('task_statuses.edit', $status) }}">
                   {{ __('Edit') }}
-                </a>
+                </x-link-button.primary>
                 <form method="POST" action="{{ route('task_statuses.destroy', $status) }}">
                     @method('DELETE')
                     @csrf
-                    <button type="submit" class="px-4 py-2 rounded-md text-xs font-semibold uppercase tracking-widest text-red-600 border border-red-700 hover:bg-red-700 hover:text-white transition">
-                    {{ __('Delete') }}
-                  </button>
+                    <x-danger-button>
+                      {{ __('Delete') }}
+                    </x-danger-button>
                 </form>
               </div>
             </td>
