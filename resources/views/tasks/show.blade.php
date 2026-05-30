@@ -1,46 +1,63 @@
 <x-app-layout>
-  <div class="flex items-center justify-between">
-    <h1 class="font-extrabold text-2xl text-gray-900 dark:text-gray-100">{{ __('Task') }}</h1>
-    <div>
-      <a href="{{ route('tasks.edit', $task) }}" class="px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-700 transition">
+  <x-slot name="header">
+    <div class="flex items-center justify-between">
+      <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+          {{ __('Task') }}
+      </h2>
+      <a href="{{ route('tasks.index') }}" class="px-4 py-2 rounded-md border border-gray-400 dark:border-gray-600 text-gray-800 dark:text-gray-300 text-xs font-semibold uppercase tracking-widest hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+        {{ __('Back') }}
+      </a>
+    </div>
+  </x-slot>
+  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
+    <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+      <table class="w-full" data-test="task">
+        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+          <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+            <th scope="row" class="w-px whitespace-nowrap px-6 py-4 text-left font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900">{{ __('ID') }}</th>
+            <td class="px-6 py-4 text-gray-900 dark:text-gray-100">{{ $task->id }}</td>
+          </tr>
+          <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+            <th scope="row" class="w-px whitespace-nowrap px-6 py-4 text-left font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900">{{ __('Title') }}</th>
+            <td class="px-6 py-4 text-gray-900 dark:text-gray-100">{{ $task->name }}</td>
+          </tr>
+          <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+            <th scope="row" class="w-px whitespace-nowrap px-6 py-4 text-left font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900">{{ __('Current status') }}</th>
+            <td class="px-6 py-4 text-gray-900 dark:text-gray-100">{{ $task->status->name }}</td>
+          </tr>
+          <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+            <th scope="row" class="w-px whitespace-nowrap px-6 py-4 text-left font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900">{{ __('Created by') }}</th>
+            <td class="px-6 py-4 text-gray-900 dark:text-gray-100">{{ $task->created_by_id }}</td>
+          </tr>
+          <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+            <th scope="row" class="w-px whitespace-nowrap px-6 py-4 text-left font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900">{{ __('Assigned to') }}</th>
+            <td class="px-6 py-4 text-gray-900 dark:text-gray-100">{{ $task->assigned_to_id }}</td>
+          </tr>
+          <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+            <th scope="row" class="w-px whitespace-nowrap px-6 py-4 text-left font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900">{{ __('Created at') }}</td>
+            <td class="px-6 py-4 text-gray-500 dark:text-gray-400">{{ $task->created_at->format('d.m.Y H:i') }}</td>
+          </tr>
+
+          <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+            <th scope="col" colspan="2" class="px-6 py-4 text-left text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900">{{ __('Description') }}</th>
+          </tr>
+          <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+            <td colspan="2" class="px-6 py-4 text-gray-900 dark:text-gray-100">{{ $task->description }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-12 flex justify-end items-center gap-3">
+      <a href="{{ route('tasks.edit', $task) }}" class="px-4 py-2 rounded-md text-xs font-semibold uppercase tracking-widest text-indigo-600 hover:text-white border border-indigo-700 hover:bg-indigo-800 transition">
         {{ __('Edit') }}
       </a>
       <form method="POST" action="{{ route('tasks.destroy', $task) }}">
         @method('DELETE')
         @csrf
-        <button type="submit" class="px-3 py-1 rounded bg-red-600 text-white hover:bg-red-700 transition">
+        <button type="submit" class="px-4 py-2 rounded-md text-xs font-semibold uppercase tracking-widest text-red-600 border border-red-700 hover:bg-red-700 hover:text-white transition">
           {{ __('Delete') }}
         </button>
       </form>
-      <a href="{{ route('tasks.index') }}" class="px-4 py-2 rounded-xl bg-gray-600 text-white font-semibold hover:bg-gray-700 transition">
-        {{ __('Go back') }}
-      </a>
     </div>
-  </div>
-  <div class="overflow-x-auto">
-    <table class="w-full mt-2 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg overflow-hidden" data-test="task">
-      <thead class="bg-gray-50 dark:bg-gray-900">
-        <tr>
-          <th class="px-4 py-2 text-left border-b border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">ID</th>
-          <th class="px-4 py-2 text-left border-b border-gray-200 dark:border-gray-700 whitespace-nowrap text-gray-700 dark:text-gray-300">{{ __('Name') }}</th>
-          <th class="px-4 py-2 text-left border-b border-gray-200 dark:border-gray-700 whitespace-nowrap text-gray-700 dark:text-gray-300">{{ __('Description') }}</th>
-          <th class="px-4 py-2 text-left border-b border-gray-200 dark:border-gray-700 whitespace-nowrap text-gray-700 dark:text-gray-300">{{ __('Status') }}</th>
-          <th class="px-4 py-2 text-left border-b border-gray-200 dark:border-gray-700 whitespace-nowrap text-gray-700 dark:text-gray-300">{{ __('Created by') }}</th>
-          <th class="px-4 py-2 text-left border-b border-gray-200 dark:border-gray-700 whitespace-nowrap text-gray-700 dark:text-gray-300">{{ __('Assigned to') }}</th>
-          <th class="px-4 py-2 text-left border-b border-gray-200 dark:border-gray-700 whitespace-nowrap text-gray-700 dark:text-gray-300">{{ __('Created at') }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-          <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100">{{ $task->id }}</td>
-          <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100">{{ $task->name }}/td>
-          <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100">{{ $task->description }}/td>
-          <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100">{{ $task->status->name }}</td>
-          <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100">{{ $task->created_by_id }}</td>
-          <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100">{{ $task->assigned_to_id }}</td>
-          <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400">{{ $task->created_at->format('d.m.Y H:i') }}</td>
-        </tr>
-    </tbody>
-    </table>
   </div>
 </x-app-layout>
