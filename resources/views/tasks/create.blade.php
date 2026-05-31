@@ -51,6 +51,13 @@
             <x-input-error :messages="$errors->get('status_id')" class="mt-2" />
           </div>
           <div>
+            <x-input-label for="labels" :value="__('app.fields.labels')" />
+            <div class="w-full max-h-16 mt-1 overflow-y-auto">
+              <x-checkbox-group :items="$labels" :selected="old('labels')" name="labels" class="cursor-pointer"/>
+            </div>
+            <x-input-error :messages="$errors->get('labels')" class="mt-2" />
+          </div>
+          <div>
             <x-input-label for="assigned_to_id" :value="__('app.fields.assigned_to_id')" />
             <x-select-input id="assigned_to_id" name="assigned_to_id" class="w-full mt-1">
               <option value="">{{ __('app.fields.empty.assignee') }}</option>

@@ -26,6 +26,18 @@
             <td class="px-6 py-4 text-gray-900 dark:text-gray-100">{{ $task->status->name }}</td>
           </tr>
           <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+            <th scope="row" class="w-px whitespace-nowrap px-6 py-4 text-left font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900">{{ __('app.fields.labels') }}</th>
+            <td class="px-6 py-4 text-gray-900 dark:text-gray-100">
+              @if ($task->labels->isNotEmpty())
+              <x-checkbox-group disabled :items="$task->labels" name="labels"/>
+              @else
+              <span class="text-gray-400">
+                  {{ __('app.fields.empty.labels') }}
+              </span>
+              @endif
+            </td>
+          </tr>
+          <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
             <th scope="row" class="w-px whitespace-nowrap px-6 py-4 text-left font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900">{{ __('app.fields.created_by_id') }}</th>
             <td class="px-6 py-4 text-gray-900 dark:text-gray-100">{{ $task->created_by_id }}</td>
           </tr>
