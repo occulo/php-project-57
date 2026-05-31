@@ -30,7 +30,15 @@
           <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
             <td class="px-6 py-4 text-center text-gray-900 dark:text-gray-100">{{ $label->id }}</td>
             <td class="px-6 py-4 text-left whitespace-normal break-words text-gray-900 dark:text-gray-100">{{ $label->name }}</td>
-            <td class="px-6 py-4 text-left whitespace-normal break-words text-gray-900 dark:text-gray-100">{{ $label->description }}</td>
+            <td class="px-6 py-4 text-left whitespace-normal break-words text-gray-900 dark:text-gray-100">
+              @if ($label->description)
+              {{ $label->description }}
+              @else
+              <span class="text-gray-400">
+                  {{ __('app.fields.empty.description') }}
+              </span>
+              @endif
+            </td>
             <td class="px-6 py-4 text-center text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ $label->created_at->format('d.m.Y H:i') }}</td>
             @auth
             <td class="px-6 py-4 text-center">
