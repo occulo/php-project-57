@@ -2,7 +2,7 @@
   <x-slot name="header">
     <div class="flex items-center justify-between">
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-          {{ __('app.labels') }}
+        {{ __('app.labels') }}
       </h2>
       @auth
       <x-link-button.primary href="{{ route('labels.create') }}">
@@ -25,17 +25,17 @@
             @endauth
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+        <tbody class="divide-y divide-gray-200 dark:divide-gray-700"> 
           @foreach($labels as $label)
           <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
             <td class="px-6 py-4 text-center text-gray-900 dark:text-gray-100">{{ $label->id }}</td>
             <td class="px-6 py-4 text-left whitespace-normal break-words text-gray-900 dark:text-gray-100">{{ $label->name }}</td>
-            <td class="px-6 py-4 text-left whitespace-normal break-words text-gray-900 dark:text-gray-100">
-              @if ($label->description)
+            <td class="px-6 py-4 text-left whitespace-normal break-words text-gray-900 dark:text-gray-100"> 
+              @if ($label->description) 
               {{ $label->description }}
               @else
               <span class="text-gray-400">
-                  {{ __('app.fields.empty.description') }}
+                {{ __('app.fields.empty.description') }}
               </span>
               @endif
             </td>
@@ -46,11 +46,7 @@
                 <x-link-button.primary href="{{ route('labels.edit', $label) }}">
                   {{ __('app.buttons.common.edit') }}
                 </x-link-button.primary>
-                <x-confirm-delete
-                  id="delete-label-{{ $label->id }}"
-                  :action="route('labels.destroy', $label)"
-                  entity="labels"
-                />
+                <x-confirm-delete id="delete-label-{{ $label->id }}" :action="route('labels.destroy', $label)" entity="labels" />
               </div>
             </td>
             @endauth
@@ -58,7 +54,7 @@
           @endforeach
         </tbody>
       </table>
-    </div>
+    </div> 
     @if($labels->hasPages())
       {{ $labels->links() }}
     @endif

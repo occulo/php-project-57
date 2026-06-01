@@ -2,7 +2,7 @@
   <x-slot name="header">
     <div class="flex items-center justify-between">
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-          {{ __('app.task_statuses') }}
+        {{ __('app.task_statuses') }}
       </h2>
       @auth
       <x-link-button.primary href="{{ route('task_statuses.create') }}">
@@ -24,7 +24,7 @@
             @endauth
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+        <tbody class="divide-y divide-gray-200 dark:divide-gray-700"> 
           @foreach($taskStatuses as $status)
           <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
             <td class="px-6 py-4 text-center text-gray-900 dark:text-gray-100">{{ $status->id }}</td>
@@ -36,16 +36,12 @@
                 <x-link-button.primary href="{{ route('task_statuses.edit', $status) }}">
                   {{ __('app.buttons.common.edit') }}
                 </x-link-button.primary>
-                <x-confirm-delete
-                  id="delete-status-{{ $status->id }}"
-                  :action="route('task_statuses.destroy', $status)"
-                  entity="task_statuses"
-                />
+                <x-confirm-delete id="delete-status-{{ $status->id }}" :action="route('task_statuses.destroy', $status)" entity="task_statuses" />
               </div>
             </td>
             @endauth
           </tr>
-          @endforeach
+          @endforeach 
         </tbody>
       </table>
     </div>

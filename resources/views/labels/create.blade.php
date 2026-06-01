@@ -2,48 +2,34 @@
   <x-slot name="header">
     <div class="flex items-center justify-between">
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-          {{ __('app.label_management') }}
+        {{ __('app.label_management') }}
       </h2>
       <x-link-button.secondary href="{{ route('labels.index') }}">
         {{ __('app.buttons.common.back') }}
       </x-link-button.secondary>
     </div>
   </x-slot>
-
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-    <header>
+      <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __('app.pages.labels.create.title') }}
+          {{ __('app.pages.labels.create.title') }}
         </h2>
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __('app.pages.labels.create.subtitle') }}
+          {{ __('app.pages.labels.create.subtitle') }}
         </p>
-    </header>
+      </header>
       <form action="{{ route('labels.store') }}" method="post">
         @csrf
         <div class="mt-6 space-y-6">
           <div>
             <x-input-label for="name" :value="__('app.fields.name')" />
-            <x-text-input
-                id="name"
-                name="name"
-                type="text"
-                :value="old('name')"
-                class="w-full mt-2"
-                placeholder="{{ __('app.forms.labels.name_placeholder') }}"
-                required
-            />
+            <x-text-input id="name" name="name" type="text" :value="old('name')" class="w-full mt-2" placeholder="{{ __('app.forms.labels.name_placeholder') }}" required />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
           </div>
           <div>
             <x-input-label for="description" :value="__('Description')" />
-            <x-textarea-input
-                id="description"
-                name="description"
-                class="w-full mt-1"
-                placeholder="{{ __('app.forms.labels.description_placeholder') }}"
-            >{{ old('description') }}</x-textarea-input>
+            <x-textarea-input id="description" name="description" class="w-full mt-1" placeholder="{{ __('app.forms.labels.description_placeholder') }}">{{ old('description') }}</x-textarea-input>
             <x-input-error :messages="$errors->get('description')" class="mt-2" />
           </div>
           <x-primary-button>
