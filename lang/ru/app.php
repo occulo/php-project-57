@@ -2,7 +2,7 @@
 
 return [
     // Navigation
-    'dashboard' => 'Главная',
+    'dashboard' => 'Панель управления',
     'profile' => 'Профиль',
     'tasks' => 'Задачи',
     'task_statuses' => 'Статусы',
@@ -17,6 +17,7 @@ return [
     // Elements
     'buttons' => [
         'common' => [
+            'create' => 'Создать',
             'view' => 'Посмотреть',
             'edit' => 'Изменить',
             'apply' => 'Применить',
