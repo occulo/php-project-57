@@ -12,6 +12,63 @@
     </div>
   </x-slot>
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 py-12">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+      <div class="flex items-center justify-between">
+        <header class="flex items-baseline gap-2">
+            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                {{ __('app.pages.tasks.index.title') }}
+            </h2>
+            <span class="text-sm text-gray-600 dark:text-gray-400">
+                {{ __('app.pages.tasks.index.subtitle') }}
+            </span>
+        </header>
+        <div class="flex items-center gap-3">
+          <x-primary-button form="filter-form">
+            {{ __('app.buttons.common.apply') }}
+          </x-primary-button>
+          <x-link-button.danger href="{{ route('tasks.index') }}">
+            {{ __('app.buttons.common.reset') }}
+          </x-link-button.danger>
+        </div>
+      </div>
+      <form id="filter-form" method="get" action="{{ route('tasks.index') }}">
+        <div class="mt-6 grid grid-cols-2 gap-6 items-start">
+          <div class="col-span-1">
+              <x-input-label for="filter[status_id]" :value="__('app.fields.status')" />
+              <x-select-input id="filter[status_id]" name="filter[status_id]" class="mt-1 w-full">
+                <option value="">{{ __('app.pages.tasks.index.options_all') }}
+                @foreach ($taskStatuses as $status)
+                <option
+                  value="{{ $status->id }}"
+                  @selected(request('filter.status_id') == $status->id)
+                >
+                    {{ $status->name }}
+                </option>
+                @endforeach
+              </x-select-input>
+          </div>
+          <div class="col-span-1">
+              <x-input-label for="filter[assigned_to_id]" :value="__('app.fields.assigned_to_id')" />
+              <x-select-input id="filter[assigned_to_id]" name="filter[assigned_to_id]" class="mt-1 w-full">
+                <option value="">{{ __('app.pages.tasks.index.options_all') }}
+                <option value="unassigned">{{ __('app.fields.empty.assignee') }}</option>
+                @foreach ($users as $user)
+                <option
+                  value="{{ $user->id }}"
+                  @selected(request('filter.assigned_to_id') == $user->id)
+                >
+                    {{ $user->name }}
+                </option>
+                @endforeach
+              </x-select-input>
+          </div>
+          <div class="col-span-2">
+              <x-input-label for="filter[label_ids]" :value="__('app.fields.labels')" />
+              <x-checkbox-group :items="$labels" :selected="request('filter.label_ids', [])" name="filter[label_ids]" class="mt-1 cursor-pointer"/>
+          </div>
+        </div>
+      </form>
+    </div>
     <div class="overflow-x-auto rounded-xl text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
       <table class="min-w-full table-fixed" data-test="tasks">
         <thead class="bg-gray-100 dark:bg-gray-900">
@@ -48,14 +105,14 @@
             <td class="px-6 py-4 text-center text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ $task->created_at->format('d.m.Y H:i') }}</td>
             @auth
             <td class="px-6 py-4 text-center">
-              <div class="flex justify-center gap-3">
+              <div class="flex items-center gap-3">
                 <x-link-button.secondary href="{{ route('tasks.show', $task) }}">
                   {{ __('app.buttons.common.view') }}
                 </x-link-button.secondary>
                 <x-link-button.primary href="{{ route('tasks.edit', $task) }}">
                   {{ __('app.buttons.common.edit') }}
                 </x-link-button.primary>
-                <form method="POST" action="{{ route('tasks.destroy', $task) }}">
+                <form method="post" action="{{ route('tasks.destroy', $task) }}">
                     @method('DELETE')
                     @csrf
                     <x-danger-button>
@@ -70,5 +127,8 @@
         </tbody>
       </table>
     </div>
+    @if($tasks->hasPages())
+      {{ $tasks->links() }}
+    @endif
   </div>
 </x-app-layout>
