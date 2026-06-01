@@ -110,7 +110,6 @@ class TaskTest extends TestCase
 
     public function testNonCreatorCannotDestroyTask(): void
     {
-        
         $diffUser = User::factory()->create();
         $response = $this->actingAs($diffUser)->delete(route('tasks.destroy', $this->task));
         $response->assertForbidden();
