@@ -1,7 +1,7 @@
 <x-guest-layout>
   <!-- Session Status -->
   <x-auth-session-status class="mb-4" :status="session('status')" />
-  <form method="POST" action="{{ route('login') }}">
+  {{ html()->form('POST', route('login'))->open() }}
     @csrf
     <!-- Email Address -->
     <div>
@@ -23,8 +23,8 @@
       </label>
     </div>
     <div class="flex items-center justify-end mt-4">
-        @if (Route::has('password.request'))
-        <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+      @if (Route::has('password.request'))
+      <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
         {{ __('auth.forgot_password') }}
       </a>
       @endif
@@ -32,5 +32,5 @@
         {{ __('auth.login') }}
       </x-primary-button>
     </div>
-  </form>
+  {{ html()->form()->close() }}
 </x-guest-layout>

@@ -19,7 +19,7 @@
           {{ __('app.pages.labels.create.subtitle') }}
         </p>
       </header>
-      <form action="{{ route('labels.store') }}" method="post">
+      {{ html()->form('POST', route('labels.store'))->open() }}
         @csrf
         <div class="mt-6 space-y-6">
           <div>
@@ -36,7 +36,7 @@
             {{ __('app.buttons.common.save') }}
           </x-primary-button>
         </div>
-      </form>
+      {{ html()->form()->close() }}
     </div>
   </div>
 </x-app-layout>

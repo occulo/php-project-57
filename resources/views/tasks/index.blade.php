@@ -31,7 +31,7 @@
           </x-link-button.danger>
         </div>
       </div>
-      <form id="filter-form" method="get" action="{{ route('tasks.index') }}">
+      {{ html()->form('GET', route('tasks.index'))->id('filter-form')->open() }}
         <div class="mt-6 grid grid-cols-2 gap-6 items-start">
           <div class="col-span-1">
             <x-input-label for="filter[status_id]" :value="__('app.fields.status')" />
@@ -58,7 +58,7 @@
             <x-checkbox-group :items="$labels" :selected="request('filter.label_ids', [])" name="filter[label_ids]" class="mt-1 cursor-pointer" />
           </div>
         </div>
-      </form>
+      {{ html()->form()->close() }}
     </div>
     <div class="overflow-x-auto rounded-xl text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
       <table class="min-w-full table-fixed" data-test="tasks">

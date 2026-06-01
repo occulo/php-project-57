@@ -19,9 +19,8 @@
           {{ __('app.pages.tasks.edit.subtitle') }}
         </p>
       </header>
-      <form action="{{ route('tasks.update', $task) }}" method="post">
+      {{ html()->form('PUT', route('tasks.update', $task))->open() }}
         @csrf
-        @method('PATCH')
         <div class="mt-6 space-y-6">
           <div>
             <x-input-label for="name" :value="__('app.fields.title')" />
@@ -50,7 +49,8 @@
             <x-input-label for="assigned_to_id" :value="__('app.fields.assigned_to_id')" />
             <x-select-input id="assigned_to_id" name="assigned_to_id" class="w-full mt-1">
               <option value="">{{ __('app.fields.empty.assignee') }}</option>
-              @foreach ($users as $user) <option value="{{ $user->id }}" @selected(old('assigned_to_id', $task->assigned_to_id) == $user->id) >
+              @foreach ($users as $user)
+              <option value="{{ $user->id }}" @selected(old('assigned_to_id', $task->assigned_to_id) == $user->id) >
                 {{ $user->name }}
               </option>
               @endforeach
@@ -66,7 +66,7 @@
             {{ __('app.buttons.common.save') }}
           </x-primary-button>
         </div>
-      </form>
+      {{ html()->form()->close() }}
     </div>
   </div>
 </x-app-layout>

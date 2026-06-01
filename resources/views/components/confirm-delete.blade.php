@@ -5,6 +5,7 @@
 </x-danger-button>
 <x-modal :name="$id" focusable>
     {{ html()->form('DELETE', $action)->class('p-6 text-left')->open() }}
+    @csrf
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
             {{ __("app.pages.$entity.destroy.title") }}
         </h2>

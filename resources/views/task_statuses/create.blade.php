@@ -19,7 +19,7 @@
           {{ __('app.pages.task_statuses.create.subtitle') }}
         </p>
       </header>
-      <form action="{{ route('task_statuses.store') }}" method="post">
+      {{ html()->form('POST', route('task_statuses.store'))->open() }}
         @csrf
         <div class="mt-6 space-y-6">
           <div>
@@ -31,7 +31,7 @@
             {{ __('app.buttons.common.save') }}
           </x-primary-button>
         </div>
-      </form>
+      {{ html()->form()->close() }}
     </div>
   </div>
 </x-app-layout>

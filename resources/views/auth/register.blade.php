@@ -1,5 +1,5 @@
 <x-guest-layout>
-  <form method="POST" action="{{ route('register') }}">
+  {{ html()->form('POST', route('register'))->open() }}
     @csrf
     <!-- Name -->
     <div>
@@ -33,5 +33,5 @@
         {{ __('auth.register') }}
       </x-primary-button>
     </div>
-  </form>
+  {{ html()->form()->close() }}
 </x-guest-layout>

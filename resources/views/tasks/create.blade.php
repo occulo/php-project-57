@@ -19,7 +19,7 @@
           {{ __('app.pages.tasks.create.subtitle') }}
         </p>
       </header>
-      <form action="{{ route('tasks.store') }}" method="post">
+      {{ html()->form('POST', route('tasks.store'))->open() }}
         @csrf
         <div class="mt-6 space-y-6">
           <div>
@@ -30,7 +30,8 @@
           <div>
             <x-input-label for="status_id" :value="__('app.fields.status')" />
             <x-select-input id="status_id" name="status_id" class="w-full mt-1">
-              @foreach ($taskStatuses as $status) <option value="{{ $status->id }}" @selected(old('status_id')==$status->id) >
+              @foreach ($taskStatuses as $status)
+              <option value="{{ $status->id }}" @selected(old('status_id')==$status->id) >
                 {{ $status->name }}
               </option>
               @endforeach
@@ -48,7 +49,8 @@
             <x-input-label for="assigned_to_id" :value="__('app.fields.assigned_to_id')" />
             <x-select-input id="assigned_to_id" name="assigned_to_id" class="w-full mt-1">
               <option value="">{{ __('app.fields.empty.assignee') }}</option>
-              @foreach ($users as $user) <option value="{{ $user->id }}" @selected(old('assigned_to_id')==$user->id) >
+              @foreach ($users as $user)
+              <option value="{{ $user->id }}" @selected(old('assigned_to_id')==$user->id) >
                 {{ $user->name }}
               </option>
               @endforeach
@@ -64,7 +66,7 @@
             {{ __('app.buttons.common.save') }}
           </x-primary-button>
         </div>
-      </form>
+      {{ html()->form()->close() }}
     </div>
   </div>
 </x-app-layout>

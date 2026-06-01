@@ -19,9 +19,8 @@
           {{ __('app.pages.task_statuses.edit.subtitle') }}
         </p>
       </header>
-      <form action="{{ route('task_statuses.update', $taskStatus) }}" method="post">
+      {{ html()->form('PUT', route('task_statuses.update', $taskStatus))->open() }}
         @csrf
-        @method('PATCH')
         <div class="mt-6 space-y-6">
           <div>
             <x-input-label for="name" :value="__('app.fields.name')" />
@@ -32,7 +31,7 @@
             {{ __('app.buttons.common.save') }}
           </x-primary-button>
         </div>
-      </form>
+      {{ html()->form()->close() }}
     </div>
   </div>
 </x-app-layout>
