@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class TaskController extends Controller
 {
@@ -27,8 +29,25 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
-        return view('tasks.index', compact('tasks'));
+        $taskStatuses = TaskStatus::all();
+        $labels = Label::all();
+        $users = User::all();
+
+        $tasks = QueryBuilder::for(Task::class)
+            ->with(['status', 'labels', 'assignedTo', 'createdBy'])
+            ->allowedFilters(
+                AllowedFilter::exact('status_id'),
+                AllowedFilter::callback('assigned_to_id', function ($q, $v) {
+                    if ($v === 'unassigned') {
+                        return $q->whereNull('assigned_to_id');
+                    }
+                    $q->where('assigned_to_id', $v);
+                }),
+                AllowedFilter::scope('label_ids', 'labels')
+            )
+            ->paginate(10);
+
+        return view('tasks.index', compact('tasks', 'taskStatuses', 'users', 'labels'));
     }
 
     /**
