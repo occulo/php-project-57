@@ -49,6 +49,7 @@ class TaskFilterTest extends TestCase
             'name' => 'Completed Task',
             'status_id' => $this->completedStatus->id,
             'created_by_id' => $this->creator->id,
+            'assigned_to_id' => null,
         ]);
     }
 
