@@ -51,5 +51,8 @@
         </tbody>
       </table>
     </div>
+    @if($taskStatuses->hasPages())
+      {{ $taskStatuses->links() }}
+    @endif
   </div>
 </x-app-layout>

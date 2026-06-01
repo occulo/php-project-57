@@ -61,5 +61,8 @@
         </tbody>
       </table>
     </div>
+    @if($labels->hasPages())
+      {{ $labels->links() }}
+    @endif
   </div>
 </x-app-layout>
