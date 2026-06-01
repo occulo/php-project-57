@@ -4,17 +4,26 @@
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
         {{ __('Привет от Хекслета!') }}
       </h2>
-      @if (Route::has('login')) <div class="flex justify-center gap-3">
+      <div class="flex justify-center gap-3">
+      @auth
+        {{ html()->form('POST', route('logout'))->open() }}
+        <x-danger-button>
+          {{ __('auth.logout') }}
+        </x-danger-button>
+        {{ html()->form()->close() }}
+      @else
+        @if (Route::has('login'))
         <x-link-button.secondary href="{{ route('login') }}">
           {{ __('auth.login') }}
         </x-link-button.secondary>
+        @endif
         @if (Route::has('register'))
         <x-link-button.primary href="{{ route('register') }}">
           {{ __('auth.register') }}
         </x-link-button.primary>
         @endif
+      @endauth
       </div>
-      @endif
     </div>
   </x-slot>
   <div class="py-12">
