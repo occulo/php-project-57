@@ -23,7 +23,7 @@ class Task extends Model
 
     public function scopeLabels($query, string|array $labels)
     {
-        $ids = is_array($labels) ?: [$labels];
+        $ids = is_array($labels) ? $labels : [$labels];
         return $query->whereHas('labels', function ($q) use ($ids) {
             $q->whereIn('labels.id', $ids);
         });
