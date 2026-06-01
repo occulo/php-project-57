@@ -33,6 +33,12 @@ class TaskStatusTest extends TestCase
         $response->assertOk();
     }
 
+    public function testGuestCannotAccessCreatePage(): void
+    {
+        $response = $this->get(route('task_statuses.create'));
+        $response->assertRedirect(route('login'));
+    }
+
     public function testGuestCannotCreateStatus(): void
     {
         $response = $this->post(route('task_statuses.store'), ['name' => 'Test']);
@@ -51,10 +57,17 @@ class TaskStatusTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
+    public function testUserCanAccessCreatePage(): void
+    {
+        $response = $this->actingAs($this->user)->get(route('task_statuses.create'));
+        $response->assertOk();
+    }
+
     public function testUserCanCreateStatus(): void
     {
-        $response = $this->actingAs($this->user)->post(route('task_statuses.store'), ['name' => 'Test']);
-        $response->assertRedirect(route('task_statuses.index'));
+        $this->actingAs($this->user)->post(route('task_statuses.store'), [
+            'name' => 'Test',
+        ])->assertRedirect(route('task_statuses.index'));
         $this->assertDatabaseHas('task_statuses', ['name' => 'Test']);
     }
 
