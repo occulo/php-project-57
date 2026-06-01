@@ -37,6 +37,12 @@ class LabelTest extends TestCase
         $response->assertOk();
     }
 
+    public function testGuestCannotAccessCreatePage(): void
+    {
+        $response = $this->get(route('labels.create'));
+        $response->assertRedirect(route('login'));
+    }
+
     public function testGuestCannotCreateLabel(): void
     {
         $response = $this->post(route('labels.store'), ['name' => 'Test']);
@@ -55,10 +61,17 @@ class LabelTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
+    public function testUserCanAccessCreatePage(): void
+    {
+        $response = $this->actingAs($this->user)->get(route('labels.create'));
+        $response->assertOk();
+    }
+
     public function testUserCanCreateLabel(): void
     {
-        $response = $this->actingAs($this->user)->post(route('labels.store'), ['name' => 'Test']);
-        $response->assertRedirect(route('labels.index'));
+        $this->actingAs($this->user)->post(route('labels.store'), [
+            'name' => 'Test',
+        ])->assertRedirect(route('labels.index'));
         $this->assertDatabaseHas('labels', ['name' => 'Test']);
     }
 
