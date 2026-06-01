@@ -21,6 +21,14 @@ class Task extends Model
         return $this->belongsToMany(Label::class);
     }
 
+    public function scopeLabels($query, string|array $labels)
+    {
+        $ids = is_array($labels) ?: [$labels];
+        return $query->whereHas('labels', function ($q) use ($ids) {
+            $q->whereIn('labels.id', $ids);
+        });
+    }
+
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by_id');
