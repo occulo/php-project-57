@@ -101,6 +101,11 @@ return [
     // Pages
     'pages' => [
         'tasks' => [
+            'index' => [
+                'title' => 'Filters',
+                'subtitle' => 'Specify which tasks to display.',
+                'options_all' => 'All',
+            ],
             'create' => [
                 'title' => 'Create task',
                 'subtitle' => 'Add a title, description, and optional assignment details needed for your task.',
