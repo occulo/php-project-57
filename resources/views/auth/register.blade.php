@@ -1,6 +1,5 @@
 <x-guest-layout>
   {{ html()->form('POST', route('register'))->open() }}
-    @csrf
     <!-- Name -->
     <div>
       <x-input-label for="name" :value="__('profile.name')" />

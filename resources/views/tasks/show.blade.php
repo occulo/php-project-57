@@ -47,7 +47,7 @@
           </tr>
           <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
             <th scope="row" class="w-px whitespace-nowrap px-6 py-4 text-left font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900">{{ __('app.fields.created_at') }}
-              </td>
+            </th>
             <td class="px-6 py-4 text-gray-500 dark:text-gray-400">{{ $task->created_at->format('d.m.Y H:i') }}</td>
           </tr>
           <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition">

@@ -2,7 +2,6 @@
   <!-- Session Status -->
   <x-auth-session-status class="mb-4" :status="session('status')" />
   {{ html()->form('POST', route('login'))->open() }}
-    @csrf
     <!-- Email Address -->
     <div>
       <x-input-label for="email" :value="__('profile.email')" />

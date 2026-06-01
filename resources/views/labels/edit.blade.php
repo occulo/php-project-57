@@ -20,7 +20,6 @@
         </p>
       </header>
       {{ html()->form('PUT', route('labels.update', $label))->open() }}
-        @csrf
         <div class="mt-6 space-y-6">
           <div>
             <x-input-label for="name" :value="__('app.fields.name')" />
@@ -28,7 +27,7 @@
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
           </div>
           <div>
-            <x-input-label for="description" :value="__('Description')" />
+            <x-input-label for="description" :value="__('app.fields.description')" />
             <x-textarea-input id="description" name="description" class="w-full mt-1" placeholder="{{ __('app.forms.labels.description_placeholder') }}">{{ old('description', $label->description) }}</x-textarea-input>
             <x-input-error :messages="$errors->get('description')" class="mt-2" />
           </div>

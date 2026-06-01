@@ -44,12 +44,11 @@
               {{ __('app.profile') }}
             </x-dropdown-link>
             <!-- Authentication -->
-            <form method="POST" action="{{ route('logout') }}"> 
-                @csrf
-                <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+            {{ html()->form('POST', route('logout'))->open() }}
+              <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
                 {{ __('auth.logout') }}
               </x-dropdown-link>
-            </form>
+            {{ html()->form()->close() }}
           </x-slot>
         </x-dropdown>
       </div>
@@ -93,12 +92,11 @@
           {{ __('app.profile') }}
         </x-responsive-nav-link>
         <!-- Authentication -->
-        <form method="POST" action="{{ route('logout') }}"> 
-            @csrf
+        {{ html()->form('POST', route('logout'))->open() }}
             <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
             {{ __('auth.logout') }}
           </x-responsive-nav-link>
-        </form>
+        {{ html()->form()->close() }}
       </div>
     </div>
     @endauth

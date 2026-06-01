@@ -20,7 +20,6 @@
         </p>
       </header>
       {{ html()->form('POST', route('tasks.store'))->open() }}
-        @csrf
         <div class="mt-6 space-y-6">
           <div>
             <x-input-label for="name" :value="__('app.fields.title')" />
