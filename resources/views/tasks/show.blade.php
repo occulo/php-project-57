@@ -39,11 +39,11 @@
           </tr>
           <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
             <th scope="row" class="w-px whitespace-nowrap px-6 py-4 text-left font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900">{{ __('app.fields.created_by_id') }}</th>
-            <td class="px-6 py-4 text-gray-900 dark:text-gray-100">{{ $task->created_by_id }}</td>
+            <td class="px-6 py-4 text-gray-900 dark:text-gray-100">{{ $task->createdBy->name }}</td>
           </tr>
           <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
             <th scope="row" class="w-px whitespace-nowrap px-6 py-4 text-left font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900">{{ __('app.fields.assigned_to_id') }}</th>
-            <td class="px-6 py-4 text-gray-900 dark:text-gray-100">{{ $task->assigned_to_id }}</td>
+            <td class="px-6 py-4 text-gray-900 dark:text-gray-100">{{ $task->assignedTo?->name ?? __('app.fields.empty.assignee') }}</td>
           </tr>
           <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
             <th scope="row" class="w-px whitespace-nowrap px-6 py-4 text-left font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-900">{{ __('app.fields.created_at') }}</td>
