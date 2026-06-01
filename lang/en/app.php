@@ -114,6 +114,10 @@ return [
                 'title' => 'Edit task',
                 'subtitle' => 'Update the task information, status, and assignment.',
             ],
+            'destroy' => [
+                'title' => 'Delete task',
+                'subtitle' => 'Are you sure you want to delete this task? This action cannot be undone.',
+            ],
         ],
         'task_statuses' => [
             'create' => [
@@ -124,6 +128,10 @@ return [
                 'title' => 'Edit status',
                 'subtitle' => 'Update the status used for tasks.',
             ],
+            'destroy' => [
+                'title' => 'Delete status',
+                'subtitle' => 'Are you sure you want to delete this status? This action cannot be undone.',
+            ],
         ],
         'labels' => [
             'create' => [
@@ -133,6 +141,10 @@ return [
             'edit' => [
                 'title' => 'Edit label',
                 'subtitle' => 'Update the label used for tasks.',
+            ],
+            'destroy' => [
+                'title' => 'Delete label',
+                'subtitle' => 'Are you sure you want to delete this label? This action cannot be undone.',
             ],
         ],
     ]
