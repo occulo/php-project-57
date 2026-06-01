@@ -46,13 +46,11 @@
                 <x-link-button.primary href="{{ route('labels.edit', $label) }}">
                   {{ __('app.buttons.common.edit') }}
                 </x-link-button.primary>
-                <form method="POST" action="{{ route('labels.destroy', $label) }}">
-                    @method('DELETE')
-                    @csrf
-                    <x-danger-button>
-                      {{ __('app.buttons.common.delete') }}
-                    </x-danger-button>
-                </form>
+                <x-confirm-delete
+                  id="delete-label-{{ $label->id }}"
+                  :action="route('labels.destroy', $label)"
+                  entity="labels"
+                />
               </div>
             </td>
             @endauth

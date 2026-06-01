@@ -112,13 +112,13 @@
                 <x-link-button.primary href="{{ route('tasks.edit', $task) }}">
                   {{ __('app.buttons.common.edit') }}
                 </x-link-button.primary>
-                <form method="post" action="{{ route('tasks.destroy', $task) }}">
-                    @method('DELETE')
-                    @csrf
-                    <x-danger-button>
-                      {{ __('app.buttons.common.delete') }}
-                    </x-danger-button>
-                </form>
+                @can('delete', $task)
+                <x-confirm-delete
+                  id="delete-task-{{ $task->id }}"
+                  :action="route('tasks.destroy', $task)"
+                  entity="tasks"
+                />
+                @endcan
               </div>
             </td>
             @endauth
