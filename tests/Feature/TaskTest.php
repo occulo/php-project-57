@@ -39,6 +39,12 @@ class TaskTest extends TestCase
         $response->assertOk();
     }
 
+    public function testGuestCannotAccessCreatePage(): void
+    {
+        $response = $this->get(route('tasks.create'));
+        $response->assertRedirect(route('login'));
+    }
+
     public function testGuestCannotCreateTask(): void
     {
         $response = $this->post(route('tasks.store'), ['name' => 'Test']);
@@ -57,16 +63,24 @@ class TaskTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
+    public function testUserCanAccessCreatePage(): void
+    {
+        $response = $this->actingAs($this->user)->get(route('tasks.create'));
+        $response->assertOk();
+    }
+
     public function testUserCanCreateTask(): void
     {
-        $data = [
+        $this->actingAs($this->user)->post(route('tasks.store'), [
+            'name' => 'Test',
+            'status_id' => $this->status->id,
+        ])->assertRedirect(route('tasks.index'));
+
+        $this->assertDatabaseHas('tasks', [
             'name' => 'Test',
             'status_id' => $this->status->id,
             'created_by_id' => $this->user->id,
-        ];
-        $response = $this->actingAs($this->user)->post(route('tasks.store'), $data);
-        $response->assertRedirect(route('tasks.index'));
-        $this->assertDatabaseHas('tasks', $data);
+        ]);
     }
 
     public function testUserCanEditTask(): void
@@ -81,7 +95,10 @@ class TaskTest extends TestCase
             'name' => 'Updated',
             'status_id' => $this->status->id
         ]);
-        $this->assertDatabaseHas('tasks', ['name' => 'Updated']);
+        $this->assertDatabaseHas('tasks', [
+            'id' => $this->task->id,
+            'name' => 'Updated',
+        ]);
     }
 
     public function testUserCanDestroyTask(): void
@@ -93,9 +110,10 @@ class TaskTest extends TestCase
 
     public function testNonCreatorCannotDestroyTask(): void
     {
+        
         $diffUser = User::factory()->create();
         $response = $this->actingAs($diffUser)->delete(route('tasks.destroy', $this->task));
-        $this->assertDatabaseHas('tasks', ['id' => $this->task->id]);
         $response->assertForbidden();
+        $this->assertDatabaseHas('tasks', ['id' => $this->task->id]);
     }
 }
