@@ -61,7 +61,9 @@
             <x-textarea-input id="description" name="description" class="w-full mt-1" placeholder="{{ __('app.forms.tasks.description_placeholder') }}">{{ old('description', $task->description) }}</x-textarea-input>
             <x-input-error :messages="$errors->get('description')" class="mt-2" />
           </div>
-          {{ html()->button(__('app.buttons.common.update'))->type('submit') }}
+          <x-primary-button>
+            {{ __('app.buttons.common.update') }}
+          </x-primary-button>
         </div>
       {{ html()->form()->close() }}
     </div>

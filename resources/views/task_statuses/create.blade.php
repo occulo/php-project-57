@@ -20,15 +20,16 @@
         </p>
       </header>
       {{ html()->form('POST', route('task_statuses.store'))->open() }}
-        <div class="mt-6 space-y-6">
-          <div>
-            <x-input-label for="name" :value="__('app.fields.name')" />
-            <x-text-input id="name" name="name" type="text" :value="old('name')" class="w-full mt-2" placeholder="{{ __('app.forms.task_statuses.name_placeholder') }}" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-          </div>
-          {{ html()->button(__('app.buttons.common.create'))->type('submit') }}
+      <div class="mt-6 space-y-6">
+        <div>
+          <x-input-label for="name" :value="__('app.fields.name')" />
+          <x-text-input id="name" name="name" type="text" :value="old('name')" class="w-full mt-2" placeholder="{{ __('app.forms.task_statuses.name_placeholder') }}" />
+          <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
-      {{ html()->form()->close() }}
+        <x-primary-button>
+          {{ __('app.buttons.common.create') }}
+        </x-primary-button>
+      </div>
     </div>
   </div>
 </x-app-layout>
