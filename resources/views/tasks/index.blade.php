@@ -24,9 +24,7 @@
           </span>
         </header>
         <div class="flex items-center gap-3">
-          <x-primary-button>
-            {{ __('app.buttons.common.apply') }}
-          </x-primary-button>
+          {{ html()->button(__('app.buttons.common.apply'))->type('submit') }}
           <x-link-button.danger href="{{ route('tasks.index') }}">
             {{ __('app.buttons.common.reset') }}
           </x-link-button.danger>
