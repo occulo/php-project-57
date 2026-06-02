@@ -179,8 +179,15 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'name' => [
+            'required' => 'This field is required',
+        ],
+        'status_id' => [
+            'required' => 'This field is required',
+        ],
+        'password' => [
+            'min' => 'The password must be at least 8 characters long',
+            'confirmed' => 'The password confirmation does not match',
         ],
     ],
 
