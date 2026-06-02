@@ -69,6 +69,15 @@ class TaskFilterTest extends TestCase
         $response->assertDontSee('Completed Task');
     }
 
+    public function testFilterByCreator(): void
+    {
+        $response = $this->get(route('tasks.index', [
+            'filter' => ['created_by_id' => $this->creator->id],
+        ]));
+        $response->assertSee('Active Task');
+        $response->assertSee('Completed Task');
+    }
+
     public function testFilterByStatus(): void
     {
         $response = $this->get(route('tasks.index', [
