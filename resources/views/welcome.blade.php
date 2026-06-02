@@ -6,8 +6,10 @@
       </h2>
       <div class="flex justify-center gap-3">
       @auth
-        {{ html()->form('POST', route('logout'))->open() }}
-          {{ html()->button(__('auth.logout'))->type('submit') }}
+        {{ html()->form('POST', route('logout'))->id('logout-form')->open() }}
+          <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            {{ __('auth.logout') }}
+          </a>
         {{ html()->form()->close() }}
       @else
         @if (Route::has('login'))
