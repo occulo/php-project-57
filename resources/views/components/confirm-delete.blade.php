@@ -1,8 +1,8 @@
 @props(['id', 'action', 'entity'])
 
-<x-danger-button x-data x-on:click.prevent="$dispatch('open-modal', '{{ $id }}')">
+<x-link-button.danger href="" x-data x-on:click.prevent="$dispatch('open-modal', '{{ $id }}')">
     {{ __('app.buttons.common.delete') }}
-</x-danger-button>
+</x-link-button.danger>
 <x-modal :name="$id" focusable>
     {{ html()->form('DELETE', $action)->class('p-6 text-left')->open() }}
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
