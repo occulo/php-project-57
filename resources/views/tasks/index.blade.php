@@ -84,7 +84,11 @@
         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
           @foreach($tasks as $task) <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
             <td class="px-6 py-4 text-center text-gray-900 dark:text-gray-100">{{ $task->id }}</td>
-            <td class="px-6 py-4 text-left whitespace-normal break-words text-gray-900 dark:text-gray-100">{{ $task->name }}</td>
+            <td class="px-6 py-4 text-left whitespace-normal break-words text-gray-900 dark:text-gray-100">
+              <a href="{{ route('tasks.show', $task) }}">
+                {{ $task->name }}
+              </a>
+            </td>
             <td class="px-6 py-4 text-left whitespace-normal break-words text-gray-900 dark:text-gray-100">{{ $task->status->name }}</td>
             <td class="px-6 py-4 text-left whitespace-normal break-words text-gray-900 dark:text-gray-100">
               @if ($task->labels->isNotEmpty())
