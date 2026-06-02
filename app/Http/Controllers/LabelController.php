@@ -38,8 +38,6 @@ class LabelController extends Controller
         $validatedData = $request->validate([
             'name' => ['required', 'max:255', Rule::unique('labels', 'name')],
             'description' => ['nullable', 'string'],
-        ], [
-            'name.unique' => __('app.flash.labels.name'),
         ]);
 
         $label = new Label();
@@ -65,8 +63,6 @@ class LabelController extends Controller
         $validatedData = $request->validate([
             'name' => ['required', 'max:255', Rule::unique('labels', 'name')->ignore($label->id)],
             'description' => ['nullable', 'string'],
-        ], [
-            'name.unique' => __('app.flash.labels.name'),
         ]);
 
         $label->fill($validatedData)->save();
