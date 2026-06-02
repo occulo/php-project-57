@@ -61,7 +61,7 @@
       {{ html()->form()->close() }}
     </div>
     @if (session()->has('flash_notification'))
-      <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+      <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg font-medium text-gray-900 dark:text-gray-100">
         @include('flash::message')
       </div>
     @endif
@@ -105,7 +105,11 @@
                   {{ __('app.buttons.common.edit') }}
                 </x-link-button.primary>
                 @can('delete', $task)
-                <x-confirm-delete id="delete-task-{{ $task->id }}" :action="route('tasks.destroy', $task)" entity="tasks" />
+                {{ html()->form('DELETE', route('tasks.destroy', $task))->open() }}
+                <x-link-button.danger href="{{ route('tasks.destroy', $task) }}" onclick="event.preventDefault(); if (confirm('{{ __('app.pages.tasks.destroy.subtitle') }}')) { this.closest('form').submit(); }">
+                    {{ __('app.buttons.common.delete') }}
+                </x-link-button.danger>
+                {{ html()->form()->close() }}
                 @endcan
               </div>
             </td>

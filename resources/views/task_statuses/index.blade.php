@@ -13,7 +13,7 @@
   </x-slot>
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 py-12">
   @if (session()->has('flash_notification'))
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg font-medium text-gray-900 dark:text-gray-100">
       @include('flash::message')
     </div>
   @endif
@@ -41,7 +41,11 @@
                 <x-link-button.primary href="{{ route('task_statuses.edit', $status) }}">
                   {{ __('app.buttons.common.edit') }}
                 </x-link-button.primary>
-                <x-confirm-delete id="delete-status-{{ $status->id }}" :action="route('task_statuses.destroy', $status)" entity="task_statuses" />
+                {{ html()->form('DELETE', route('task_statuses.destroy', $status))->open() }}
+                <x-link-button.danger href="{{ route('task_statuses.destroy', $status) }}" onclick="event.preventDefault(); if (confirm('{{ __('app.pages.task_statuses.destroy.subtitle') }}')) { this.closest('form').submit(); }">
+                    {{ __('app.buttons.common.delete') }}
+                </x-link-button.danger>
+                {{ html()->form()->close() }}
               </div>
             </td>
             @endauth
