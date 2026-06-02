@@ -43,6 +43,7 @@ class TaskController extends Controller
                     }
                     $q->where('assigned_to_id', $v);
                 }),
+                AllowedFilter::exact('created_by_id'),
                 AllowedFilter::scope('label_ids', 'labels')
             )
             ->paginate(10);
