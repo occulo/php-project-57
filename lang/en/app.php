@@ -52,12 +52,14 @@ return [
         ],
         'task_statuses' => [
             'created' => 'Status created successfully',
+            'name' => 'Status with this name already exists',
             'updated' => 'Status updated successfully',
             'deleted' => 'Status deleted successfully',
             'delete_failed' => 'Unable to delete status',
         ],
         'labels' => [
             'created' => 'Label created successfully',
+            'name' => 'Label with this name already exists',
             'updated' => 'Label updated successfully',
             'deleted' => 'Label deleted successfully',
             'delete_failed' => 'Unable to delete label',
@@ -92,9 +94,10 @@ return [
         'created_at' => 'Created at',
         'actions' => 'Actions',
         'empty' => [
+            'status' => 'Not selected',
+            'labels' => 'No labels',
             'assignee' => 'Unassigned',
             'description' => 'No description',
-            'labels' => 'No labels',
         ]
     ],
 
