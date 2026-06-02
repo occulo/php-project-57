@@ -60,6 +60,11 @@
         </div>
       {{ html()->form()->close() }}
     </div>
+    @if (session()->has('flash_notification'))
+      <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+        @include('flash::message')
+      </div>
+    @endif
     <div class="overflow-x-auto rounded-xl text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
       <table class="min-w-full table-fixed" data-test="tasks">
         <thead class="bg-gray-100 dark:bg-gray-900">
