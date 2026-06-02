@@ -32,13 +32,14 @@
         </div>
       </div>
       {{ html()->form('GET', route('tasks.index'))->id('filter-form')->open() }}
-        <div class="mt-6 grid grid-cols-2 gap-6 items-start">
+        <div class="mt-6 grid grid-cols-3 gap-6 items-start">
           <div class="col-span-1">
             <x-input-label for="filter[status_id]" :value="__('app.fields.status')" />
             <x-select-input id="filter[status_id]" name="filter[status_id]" class="mt-1 w-full">
               <option value="">{{ __('app.pages.tasks.index.options_all') }}
               @foreach ($taskStatuses as $status)
-              <option value="{{ $status->id }}" @selected(request('filter.status_id')==$status->id) > {{ $status->name }}
+              <option value="{{ $status->id }}" @selected(request('filter.status_id')==$status->id) >
+                {{ $status->name }}
               </option>
               @endforeach
             </x-select-input>
@@ -48,12 +49,25 @@
             <x-select-input id="filter[assigned_to_id]" name="filter[assigned_to_id]" class="mt-1 w-full">
               <option value="">{{ __('app.pages.tasks.index.options_all') }}
               <option value="unassigned">{{ __('app.fields.empty.assignee') }}</option>
-              @foreach ($users as $user) <option value="{{ $user->id }}" @selected(request('filter.assigned_to_id')==$user->id) > {{ $user->name }}
+              @foreach ($users as $user)
+              <option value="{{ $user->id }}" @selected(request('filter.assigned_to_id')==$user->id) >
+                {{ $user->name }}
               </option>
               @endforeach
             </x-select-input>
           </div>
-          <div class="col-span-2">
+          <div class="col-span-1">
+            <x-input-label for="filter[assigned_to_id]" :value="__('app.fields.created_by_id')" />
+            <x-select-input id="filter[created_by_id]" name="filter[created_by_id]" class="mt-1 w-full">
+              <option value="">{{ __('app.pages.tasks.index.options_all') }}
+              @foreach ($users as $user)
+              <option value="{{ $user->id }}" @selected(request('filter.created_by_id')==$user->id) >
+                {{ $user->name }}
+              </option>
+              @endforeach
+            </x-select-input>
+          </div>
+          <div class="col-span-3">
             <x-input-label for="filter[label_ids]" :value="__('app.fields.labels')" />
             <x-checkbox-group :items="$labels" :selected="request('filter.label_ids', [])" name="filter[label_ids]" class="mt-1 cursor-pointer" />
           </div>
