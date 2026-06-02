@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Label;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class LabelController extends Controller
 {
@@ -35,8 +36,10 @@ class LabelController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'max:255'],
+            'name' => ['required', 'max:255', Rule::unique('labels', 'name')],
             'description' => ['nullable', 'string'],
+        ], [
+            'name.unique' => __('app.flash.labels.name'),
         ]);
 
         $label = new Label();
@@ -60,8 +63,10 @@ class LabelController extends Controller
     public function update(Request $request, Label $label)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'max:255'],
+            'name' => ['required', 'max:255', Rule::unique('labels', 'name')->ignore($label->id)],
             'description' => ['nullable', 'string'],
+        ], [
+            'name.unique' => __('app.flash.labels.name'),
         ]);
 
         $label->fill($validatedData)->save();
