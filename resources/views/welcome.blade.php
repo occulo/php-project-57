@@ -4,26 +4,6 @@
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
         {{ __('Привет от Хекслета!') }}
       </h2>
-      <div class="flex justify-center gap-3">
-      @auth
-        {{ html()->form('POST', route('logout'))->id('logout-form')->open() }}
-          <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            {{ __('auth.logout') }}
-          </a>
-        {{ html()->form()->close() }}
-      @else
-        @if (Route::has('login'))
-        <a href="{{ route('login') }}">
-          {{ __('auth.login') }}
-        </a>
-        @endif
-        @if (Route::has('register'))
-        <a href="{{ route('register') }}">
-          {{ __('auth.register') }}
-        </a>
-        @endif
-      @endauth
-      </div>
     </div>
   </x-slot>
   <div class="py-12">

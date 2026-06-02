@@ -5,7 +5,7 @@
       <div class="flex">
         <!-- Logo -->
         <div class="shrink-0 flex items-center">
-          <a href="{{ route('dashboard') }}">
+          <a href="{{ route('home') }}">
             <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
           </a>
         </div>
@@ -25,8 +25,9 @@
           </x-nav-link>
         </div>
       </div>
-      <!-- Settings Dropdown --> 
+      <div class="flex items-center justify-center gap-3">
       @auth
+      <!-- Settings Dropdown -->
       <div class="hidden sm:flex sm:items-center sm:ms-6">
         <x-dropdown align="right" width="48">
           <x-slot name="trigger">
@@ -44,14 +45,30 @@
               {{ __('app.profile') }}
             </x-dropdown-link>
             <!-- Authentication -->
-            {{ html()->form('POST', route('logout'))->open() }}
+            {{-- {{ html()->form('POST', route('logout'))->open() }}
               <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
                 {{ __('auth.logout') }}
               </x-dropdown-link>
-            {{ html()->form()->close() }}
+            {{ html()->form()->close() }} --}}
           </x-slot>
         </x-dropdown>
       </div>
+        {{ html()->form('POST', route('logout'))->id('logout-form')->open() }}
+          <x-link-button.danger href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            {{ __('auth.logout') }}
+          </x-link-button.danger>
+        {{ html()->form()->close() }}
+      @else
+        @if (Route::has('login'))
+        <x-link-button.secondary href="{{ route('login') }}">
+          {{ __('auth.login') }}
+        </x-link-button.secondary>
+        @endif
+        @if (Route::has('register'))
+        <x-link-button.primary href="{{ route('register') }}">
+          {{ __('auth.register') }}
+        </x-link-button.primary>
+        @endif
       @endauth
       <!-- Hamburger -->
       <div class="-me-2 flex items-center sm:hidden">
@@ -61,6 +78,7 @@
             <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
+      </div>
       </div>
     </div>
   </div>
