@@ -11,9 +11,14 @@
       @endauth
     </div>
   </x-slot>
-  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
-    <div class="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-      <table class="min-w-full table-fixed" data-test="tasks">
+  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 py-12">
+  @if (session()->has('flash_notification'))
+    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+      @include('flash::message')
+    </div>
+  @endif
+    <div class="overflow-x-auto rounded-xl text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+      <table class="min-w-full table-fixed" data-test="task_statuses">
         <thead class="bg-gray-100 dark:bg-gray-900">
           <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
             <th class="w-16 px-6 py-4 font-medium text-center text-gray-700 dark:text-gray-300">ID</th>
