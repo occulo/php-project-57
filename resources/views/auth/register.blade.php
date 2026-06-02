@@ -1,50 +1,36 @@
 <x-guest-layout>
   {{ html()->form('POST', route('register'))->open() }}
-  <!-- Name -->
-  <div>
-    {{ html()->label(__('profile.name'), 'name') }}
-    {{ html()->text('name', old('name'))->id('name')->attribute('required')->attribute('autofocus')->attribute('autocomplete', 'name') }}
-    @error('name')
+    <!-- Name -->
     <div>
-        {{ $message }}
+      <x-input-label for="name" :value="__('profile.name')" />
+      <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+      <x-input-error :messages="$errors->get('name')" class="mt-2" />
     </div>
-    @enderror
-  </div>
-  <!-- Email Address -->
-  <div>
-    {{ html()->label(__('profile.email'), 'email') }}
-    {{ html()->email('email', old('email'))->id('email')->attribute('required')->attribute('autocomplete', 'username') }}
-    @error('email')
-    <div>
-        {{ $message }}
+    <!-- Email Address -->
+    <div class="mt-4">
+      <x-input-label for="email" :value="__('profile.email')" />
+      <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+      <x-input-error :messages="$errors->get('email')" class="mt-2" />
     </div>
-    @enderror
-  </div>
-  <!-- Password -->
-  <div>
-    {{ html()->label(__('profile.password'), 'password') }}
-    {{ html()->password('password')->id('password')->attribute('required')->attribute('autocomplete', 'new-password') }}
-    @error('password')
-    <div>
-        {{ $message }}
+    <!-- Password -->
+    <div class="mt-4">
+      <x-input-label for="password" :value="__('profile.password')" />
+      <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+      <x-input-error :messages="$errors->get('password')" class="mt-2" />
     </div>
-    @enderror
-  </div>
-  <!-- Confirm Password -->
-  <div>
-    {{ html()->label(__('profile.confirm_password'), 'password_confirmation') }}
-    {{ html()->password('password_confirmation')->id('password_confirmation')->attribute('required')->attribute('autocomplete', 'new-password') }}
-    @error('password_confirmation')
-    <div>
-        {{ $message }}
+    <!-- Confirm Password -->
+    <div class="mt-4">
+      <x-input-label for="password_confirmation" :value="__('profile.confirm_password')" />
+      <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+      <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
     </div>
-    @enderror
-  </div>
-  <div>
-    <a href="{{ route('login') }}">
-      {{ __('auth.already_registered') }}
-    </a>
-    {{ html()->button(__('auth.register'))->type('submit') }}
-  </div>
+    <div class="flex items-center justify-end mt-4">
+      <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
+        {{ __('auth.already_registered') }}
+      </a>
+      <x-primary-button class="ms-4">
+        {{ __('auth.register') }}
+      </x-primary-button>
+    </div>
   {{ html()->form()->close() }}
 </x-guest-layout>
