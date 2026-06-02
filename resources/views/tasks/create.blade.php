@@ -23,7 +23,7 @@
         <div class="mt-6 space-y-6">
           <div>
             <x-input-label for="name" :value="__('app.fields.title')" />
-            <x-text-input id="name" name="name" type="text" :value="old('name')" class="w-full mt-1" placeholder="{{ __('app.forms.tasks.title_placeholder') }}" required autofocus />
+            <x-text-input id="name" name="name" type="text" :value="old('name')" class="w-full mt-1" placeholder="{{ __('app.forms.tasks.title_placeholder') }}" autofocus />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
           </div>
           <div>

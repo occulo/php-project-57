@@ -23,7 +23,7 @@
         <div class="mt-6 space-y-6">
           <div>
             <x-input-label for="name" :value="__('app.fields.name')" />
-            <x-text-input id="name" name="name" type="text" :value="old('name', $label->name)" class="w-full mt-2" placeholder="{{ __('app.forms.labels.name_placeholder') }}" required />
+            <x-text-input id="name" name="name" type="text" :value="old('name', $label->name)" class="w-full mt-2" placeholder="{{ __('app.forms.labels.name_placeholder') }}" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
           </div>
           <div>
