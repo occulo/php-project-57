@@ -26,9 +26,7 @@
             <x-text-input id="name" name="name" type="text" :value="old('name')" class="w-full mt-2" placeholder="{{ __('app.forms.task_statuses.name_placeholder') }}" required />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
           </div>
-          <x-primary-button>
-            {{ __('app.buttons.common.save') }}
-          </x-primary-button>
+          {{ html()->button(__('app.buttons.common.create'))->type('submit') }}
         </div>
       {{ html()->form()->close() }}
     </div>

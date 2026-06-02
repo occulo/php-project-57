@@ -7,20 +7,18 @@
       <div class="flex justify-center gap-3">
       @auth
         {{ html()->form('POST', route('logout'))->open() }}
-        <x-danger-button>
-          {{ __('auth.logout') }}
-        </x-danger-button>
+          {{ html()->button(__('auth.logout'))->type('submit') }}
         {{ html()->form()->close() }}
       @else
         @if (Route::has('login'))
-        <x-link-button.secondary href="{{ route('login') }}">
+        <a href="{{ route('login') }}">
           {{ __('auth.login') }}
-        </x-link-button.secondary>
+        </a>
         @endif
         @if (Route::has('register'))
-        <x-link-button.primary href="{{ route('register') }}">
+        <a href="{{ route('register') }}">
           {{ __('auth.register') }}
-        </x-link-button.primary>
+        </a>
         @endif
       @endauth
       </div>

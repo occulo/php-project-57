@@ -31,9 +31,7 @@
             <x-textarea-input id="description" name="description" class="w-full mt-1" placeholder="{{ __('app.forms.labels.description_placeholder') }}">{{ old('description') }}</x-textarea-input>
             <x-input-error :messages="$errors->get('description')" class="mt-2" />
           </div>
-          <x-primary-button>
-            {{ __('app.buttons.common.save') }}
-          </x-primary-button>
+          {{ html()->button(__('app.buttons.common.create'))->type('submit') }}
         </div>
       {{ html()->form()->close() }}
     </div>
