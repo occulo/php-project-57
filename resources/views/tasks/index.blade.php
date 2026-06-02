@@ -24,7 +24,7 @@
           </span>
         </header>
         <div class="flex items-center gap-3">
-          {{ html()->button(__('app.buttons.common.apply'))->type('submit')->class('px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white') }}
+          {{ html()->button(__('app.buttons.common.apply'))->type('submit')->class('px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 hover:bg-gray-700 dark:hover:bg-white') }}
           <x-link-button.danger href="{{ route('tasks.index') }}">
             {{ __('app.buttons.common.reset') }}
           </x-link-button.danger>
