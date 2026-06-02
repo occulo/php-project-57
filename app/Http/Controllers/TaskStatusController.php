@@ -37,6 +37,8 @@ class TaskStatusController extends Controller
     {
         $validatedData = $request->validate([
             'name' => ['required', 'max:255', Rule::unique('task_statuses', 'name')],
+        ], [
+            'name.unique' => __('app.flash.task_statuses.name'),
         ]);
 
         $taskStatus = new TaskStatus();
@@ -61,6 +63,8 @@ class TaskStatusController extends Controller
     {
         $validatedData = $request->validate([
             'name' => ['required', 'max:255', Rule::unique('task_statuses', 'name')->ignore($taskStatus->id)],
+        ], [
+            'name.unique' => __('app.flash.task_statuses.name'),
         ]);
 
         $taskStatus->fill($validatedData)->save();
