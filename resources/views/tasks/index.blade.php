@@ -13,6 +13,7 @@
   </x-slot>
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 py-12">
     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+      {{ html()->form('GET', route('tasks.index'))->open() }}
       <div class="flex items-center justify-between">
         <header class="flex items-baseline gap-2">
           <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
@@ -23,7 +24,7 @@
           </span>
         </header>
         <div class="flex items-center gap-3">
-          <x-primary-button form="filter-form">
+          <x-primary-button>
             {{ __('app.buttons.common.apply') }}
           </x-primary-button>
           <x-link-button.danger href="{{ route('tasks.index') }}">
@@ -31,47 +32,46 @@
           </x-link-button.danger>
         </div>
       </div>
-      {{ html()->form('GET', route('tasks.index'))->id('filter-form')->open() }}
-        <div class="mt-6 grid grid-cols-3 gap-6 items-start">
-          <div class="col-span-1">
-            <x-input-label for="filter[status_id]" :value="__('app.fields.status')" />
-            <x-select-input id="filter[status_id]" name="filter[status_id]" class="mt-1 w-full">
-              <option value="">{{ __('app.pages.tasks.index.options_all') }}
-              @foreach ($taskStatuses as $status)
-              <option value="{{ $status->id }}" @selected(request('filter.status_id')==$status->id) >
-                {{ $status->name }}
-              </option>
-              @endforeach
-            </x-select-input>
-          </div>
-          <div class="col-span-1">
-            <x-input-label for="filter[assigned_to_id]" :value="__('app.fields.assigned_to_id')" />
-            <x-select-input id="filter[assigned_to_id]" name="filter[assigned_to_id]" class="mt-1 w-full">
-              <option value="">{{ __('app.pages.tasks.index.options_all') }}
-              <option value="unassigned">{{ __('app.fields.empty.assignee') }}</option>
-              @foreach ($users as $user)
-              <option value="{{ $user->id }}" @selected(request('filter.assigned_to_id')==$user->id) >
-                {{ $user->name }}
-              </option>
-              @endforeach
-            </x-select-input>
-          </div>
-          <div class="col-span-1">
-            <x-input-label for="filter[assigned_to_id]" :value="__('app.fields.created_by_id')" />
-            <x-select-input id="filter[created_by_id]" name="filter[created_by_id]" class="mt-1 w-full">
-              <option value="">{{ __('app.pages.tasks.index.options_all') }}
-              @foreach ($users as $user)
-              <option value="{{ $user->id }}" @selected(request('filter.created_by_id')==$user->id) >
-                {{ $user->name }}
-              </option>
-              @endforeach
-            </x-select-input>
-          </div>
-          <div class="col-span-3">
-            <x-input-label for="filter[label_ids]" :value="__('app.fields.labels')" />
-            <x-checkbox-group :items="$labels" :selected="request('filter.label_ids', [])" name="filter[label_ids]" class="mt-1 cursor-pointer" />
-          </div>
+      <div class="mt-6 grid grid-cols-3 gap-6 items-start">
+        <div class="col-span-1">
+          <x-input-label for="filter[status_id]" :value="__('app.fields.status')" />
+          <x-select-input id="filter[status_id]" name="filter[status_id]" class="mt-1 w-full">
+            <option value="">{{ __('app.pages.tasks.index.options_all') }}
+            @foreach ($taskStatuses as $status)
+            <option value="{{ $status->id }}" @selected(request('filter.status_id')==$status->id) >
+              {{ $status->name }}
+            </option>
+            @endforeach
+          </x-select-input>
         </div>
+        <div class="col-span-1">
+          <x-input-label for="filter[assigned_to_id]" :value="__('app.fields.assigned_to_id')" />
+          <x-select-input id="filter[assigned_to_id]" name="filter[assigned_to_id]" class="mt-1 w-full">
+            <option value="">{{ __('app.pages.tasks.index.options_all') }}
+            <option value="unassigned">{{ __('app.fields.empty.assignee') }}</option>
+            @foreach ($users as $user)
+            <option value="{{ $user->id }}" @selected(request('filter.assigned_to_id')==$user->id) >
+              {{ $user->name }}
+            </option>
+            @endforeach
+          </x-select-input>
+        </div>
+        <div class="col-span-1">
+          <x-input-label for="filter[assigned_to_id]" :value="__('app.fields.created_by_id')" />
+          <x-select-input id="filter[created_by_id]" name="filter[created_by_id]" class="mt-1 w-full">
+            <option value="">{{ __('app.pages.tasks.index.options_all') }}
+            @foreach ($users as $user)
+            <option value="{{ $user->id }}" @selected(request('filter.created_by_id')==$user->id) >
+              {{ $user->name }}
+            </option>
+            @endforeach
+          </x-select-input>
+        </div>
+        <div class="col-span-3">
+          <x-input-label for="filter[label_ids]" :value="__('app.fields.labels')" />
+          <x-checkbox-group :items="$labels" :selected="request('filter.label_ids', [])" name="filter[label_ids]" class="mt-1 cursor-pointer" />
+        </div>
+      </div>
       {{ html()->form()->close() }}
     </div>
     @if (session()->has('flash_notification'))
