@@ -29,6 +29,7 @@
           <div>
             <x-input-label for="status_id" :value="__('app.fields.status')" />
             <x-select-input id="status_id" name="status_id" class="w-full mt-1">
+              <option value="">{{ __('app.fields.empty.status') }}</option>
               @foreach ($taskStatuses as $status)
               <option value="{{ $status->id }}" @selected(old('status_id')==$status->id) >
                 {{ $status->name }}
