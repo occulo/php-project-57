@@ -36,25 +36,25 @@ class TaskStatusTest extends TestCase
     public function testGuestCannotAccessCreatePage(): void
     {
         $response = $this->get(route('task_statuses.create'));
-        $response->assertRedirect(route('login'));
+        $response->assertForbidden();
     }
 
     public function testGuestCannotCreateStatus(): void
     {
         $response = $this->post(route('task_statuses.store'), ['name' => 'Test']);
-        $response->assertRedirect(route('login'));
+        $response->assertForbidden();
     }
 
     public function testGuestCannotEditStatus(): void
     {
         $response = $this->get(route('task_statuses.edit', $this->status));
-        $response->assertRedirect(route('login'));
+        $response->assertForbidden();
     }
 
     public function testGuestCannotDestroyStatus(): void
     {
         $response = $this->delete(route('task_statuses.destroy', $this->status));
-        $response->assertRedirect(route('login'));
+        $response->assertForbidden();
     }
 
     public function testUserCanAccessCreatePage(): void

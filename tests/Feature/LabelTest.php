@@ -40,25 +40,25 @@ class LabelTest extends TestCase
     public function testGuestCannotAccessCreatePage(): void
     {
         $response = $this->get(route('labels.create'));
-        $response->assertRedirect(route('login'));
+        $response->assertForbidden();
     }
 
     public function testGuestCannotCreateLabel(): void
     {
         $response = $this->post(route('labels.store'), ['name' => 'Test']);
-        $response->assertRedirect(route('login'));
+        $response->assertForbidden();
     }
 
     public function testGuestCannotEditLabel(): void
     {
         $response = $this->get(route('labels.edit', $this->label));
-        $response->assertRedirect(route('login'));
+        $response->assertForbidden();
     }
 
     public function testGuestCannotDestroyLabel(): void
     {
         $response = $this->delete(route('labels.destroy', $this->label));
-        $response->assertRedirect(route('login'));
+        $response->assertForbidden();
     }
 
     public function testUserCanAccessCreatePage(): void

@@ -13,14 +13,21 @@ class TaskTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+    private User $diffUser;
+
     private TaskStatus $status;
+
     private Task $task;
 
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->user = User::factory()->create();
+        $this->diffUser = User::factory()->create();
+
         $this->status = TaskStatus::factory()->create();
+
         $this->task = Task::factory()->create([
             'status_id' => $this->status->id,
             'created_by_id' => $this->user->id,
@@ -42,25 +49,25 @@ class TaskTest extends TestCase
     public function testGuestCannotAccessCreatePage(): void
     {
         $response = $this->get(route('tasks.create'));
-        $response->assertRedirect(route('login'));
+        $response->assertForbidden();
     }
 
     public function testGuestCannotCreateTask(): void
     {
         $response = $this->post(route('tasks.store'), ['name' => 'Test']);
-        $response->assertRedirect(route('login'));
+        $response->assertForbidden();
     }
 
     public function testGuestCannotEditTask(): void
     {
         $response = $this->get(route('tasks.edit', $this->task));
-        $response->assertRedirect(route('login'));
+        $response->assertForbidden();
     }
 
     public function testGuestCannotDestroyTask(): void
     {
         $response = $this->delete(route('tasks.destroy', $this->task));
-        $response->assertRedirect(route('login'));
+        $response->assertForbidden();
     }
 
     public function testUserCanAccessCreatePage(): void
@@ -89,6 +96,12 @@ class TaskTest extends TestCase
         $response->assertOk();
     }
 
+    public function testNonCreatorCannotEditTask(): void
+    {
+        $response = $this->actingAs($this->diffUser)->get(route('tasks.edit', $this->task));
+        $response->assertForbidden();
+    }
+
     public function testUserCanUpdateTask(): void
     {
         $this->actingAs($this->user)->patch(route('tasks.update', $this->task), [
@@ -96,6 +109,18 @@ class TaskTest extends TestCase
             'status_id' => $this->status->id
         ]);
         $this->assertDatabaseHas('tasks', [
+            'id' => $this->task->id,
+            'name' => 'Updated',
+        ]);
+    }
+
+    public function testNonCreatorCannotUpdateTask(): void
+    {
+        $this->actingAs($this->diffUser)->patch(route('tasks.update', $this->task), [
+            'name' => 'Updated',
+            'status_id' => $this->status->id,
+        ])->assertForbidden();
+        $this->assertDatabaseMissing('tasks', [
             'id' => $this->task->id,
             'name' => 'Updated',
         ]);
@@ -110,8 +135,7 @@ class TaskTest extends TestCase
 
     public function testNonCreatorCannotDestroyTask(): void
     {
-        $diffUser = User::factory()->create();
-        $response = $this->actingAs($diffUser)->delete(route('tasks.destroy', $this->task));
+        $response = $this->actingAs($this->diffUser)->delete(route('tasks.destroy', $this->task));
         $response->assertForbidden();
         $this->assertDatabaseHas('tasks', ['id' => $this->task->id]);
     }
