@@ -10,7 +10,7 @@ class LabelController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index']);
+        $this->authorizeResource(Label::class, 'label');
     }
 
     /**
@@ -36,7 +36,7 @@ class LabelController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'max:255', Rule::unique('labels', 'name')],
+            'name' => ['required', 'unique:labels', 'max:255'],
             'description' => ['nullable', 'string'],
         ], [
             'name.unique' => __('app.flash.labels.name'),
@@ -63,7 +63,11 @@ class LabelController extends Controller
     public function update(Request $request, Label $label)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'max:255', Rule::unique('labels', 'name')->ignore($label->id)],
+            'name' => [
+                'required',
+                'max:255',
+                Rule::unique('labels', 'name')->ignore($label->id)
+            ],
             'description' => ['nullable', 'string'],
         ], [
             'name.unique' => __('app.flash.labels.name'),
@@ -80,13 +84,12 @@ class LabelController extends Controller
      */
     public function destroy(Label $label)
     {
-        if ($label->tasks()->exists()) {
-            flash(__('app.flash.labels.delete_failed'));
-        } else {
+        try {
             $label->delete();
             flash(__('app.flash.labels.deleted'));
+        } catch (\Exception $e) {
+            flash(__('app.flash.labels.delete_failed'));
         }
-
         return redirect()->route('labels.index');
     }
 }

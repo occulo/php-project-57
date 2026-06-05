@@ -21,7 +21,7 @@ class TaskController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        $this->authorizeResource(Task::class, 'task');
     }
 
     /**
@@ -69,16 +69,20 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'max:255'],
+            'name' => [
+                'required',
+                'max:255',
+                Rule::unique('tasks')->where('created_by_id', Auth::id()),
+            ],
             'description' => ['nullable', 'string'],
-            'status_id' => ['required', Rule::exists('task_statuses', 'id')],
-            'assigned_to_id' => ['nullable', Rule::exists('users', 'id')],
+            'status_id' => ['required', 'exists:task_statuses,id'],
+            'assigned_to_id' => ['nullable', 'exists:users,id'],
+            'labels' => ['nullable', 'array'],
+            'labels.*' => ['integer', 'exists:labels,id'],
         ]);
-        $validatedData['created_by_id'] = Auth::id();
 
-        $task = new Task();
-        $task->fill($validatedData)->save();
-        $task->labels()->sync($request->labels);
+        $task = Auth::user()->createdTasks()->create($validatedData);
+        $task->labels()->sync($request->labels ?? []);
 
         flash(__('app.flash.tasks.created'));
         return redirect()->route('tasks.index');
@@ -110,14 +114,20 @@ class TaskController extends Controller
     public function update(Request $request, Task $task)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'max:255'],
+            'name' => [
+                'required',
+                'max:255',
+                Rule::unique('tasks')->where('created_by_id', Auth::id())->ignore($task->id),
+            ],
             'description' => ['nullable', 'string'],
-            'status_id' => ['required', Rule::exists('task_statuses', 'id')],
-            'assigned_to_id' => ['nullable', Rule::exists('users', 'id')],
+            'status_id' => ['required', 'exists:task_statuses,id'],
+            'assigned_to_id' => ['nullable', 'exists:users,id'],
+            'labels' => ['nullable', 'array'],
+            'labels.*' => ['integer', 'exists:labels,id'],
         ]);
 
         $task->fill($validatedData)->save();
-        $task->labels()->sync($request->labels);
+        $task->labels()->sync($request->labels ?? []);
 
         flash(__('app.flash.tasks.updated'));
         return redirect()->route('tasks.index');
@@ -128,14 +138,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        if (Auth::id() !== $task->created_by_id) {
-            flash(__('app.flash.tasks.delete_failed'));
-            abort(403);
-        } else {
-            $task->delete();
-            flash(__('app.flash.tasks.deleted'));
-        }
-
+        $task->delete();
+        flash(__('app.flash.tasks.deleted'));
         return redirect()->route('tasks.index');
     }
 }

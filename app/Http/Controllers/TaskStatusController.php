@@ -8,9 +8,14 @@ use Illuminate\Validation\Rule;
 
 class TaskStatusController extends Controller
 {
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index']);
+        $this->authorizeResource(TaskStatus::class, 'task_status');
     }
 
     /**
@@ -36,7 +41,7 @@ class TaskStatusController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'max:255', Rule::unique('task_statuses', 'name')],
+            'name' => ['required', 'unique:task_statuses', 'max:255'],
         ], [
             'name.unique' => __('app.flash.task_statuses.name'),
         ]);
@@ -62,7 +67,10 @@ class TaskStatusController extends Controller
     public function update(Request $request, TaskStatus $taskStatus)
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'max:255', Rule::unique('task_statuses', 'name')->ignore($taskStatus->id)],
+            'name' => [
+                'required',
+                'max:255',
+                Rule::unique('task_statuses', 'name')->ignore($taskStatus->id)],
         ], [
             'name.unique' => __('app.flash.task_statuses.name'),
         ]);
@@ -78,13 +86,12 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
-        if ($taskStatus->tasks()->exists()) {
-            flash(__('app.flash.task_statuses.delete_failed'));
-        } else {
+        try {
             $taskStatus->delete();
             flash(__('app.flash.task_statuses.deleted'));
+        } catch (\Exception $e) {
+            flash(__('app.flash.task_statuses.delete_failed'));
         }
-
         return redirect()->route('task_statuses.index');
     }
 }
