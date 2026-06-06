@@ -117,7 +117,7 @@ class TaskController extends Controller
             'name' => [
                 'required',
                 'max:255',
-                Rule::unique('tasks')->where('created_by_id', Auth::id())->ignore($task->id),
+                Rule::unique('tasks')->where('created_by_id', $task->created_by_id)->ignore($task->id),
             ],
             'description' => ['nullable', 'string'],
             'status_id' => ['required', 'exists:task_statuses,id'],
